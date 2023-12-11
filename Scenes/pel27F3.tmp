@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://beq07f81gtw86"]
+
+[ext_resource type="Texture2D" uid="uid://d3jx6543mcjvy" path="res://Assets/Sprites/pellet.png" id="1_86ntq"]
+[ext_resource type="Shader" path="res://Shaders/bob_vertical.gdshader" id="1_ojniv"]
+[ext_resource type="Script" path="res://Scripts/pellet.gd" id="1_t0ep3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ym23"]
+radius = 14.3178
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_krrx4"]
+shader = ExtResource("1_ojniv")
+shader_parameter/amplitude = 7.5
+shader_parameter/frequency = 2.0
+
+[node name="Pellet" type="Area2D"]
+texture_filter = 2
+script = ExtResource("1_t0ep3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4ym23")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_krrx4")
+texture = ExtResource("1_86ntq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
