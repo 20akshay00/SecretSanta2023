@@ -22,7 +22,7 @@ var _input_vector := Vector2.ZERO
 func _process(_delta: float) -> void:		
 	if _state == Enums.State.AIM:
 		_input_vector = (
-			_anchor_point - get_global_mouse_position()
+			_anchor_point - get_viewport().get_mouse_position()
 			).limit_length(MAX_INPUT_LIMIT) / MAX_INPUT_LIMIT
 		trajectory_guide.update(global_position, IMPULSE * _input_vector, gravity * Vector2(0, 1), _delta)
 		
@@ -41,7 +41,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Aim"):
-		_anchor_point = get_global_mouse_position()
+		_anchor_point = get_viewport().get_mouse_position()
 		_state = Enums.State.AIM
 	elif event.is_action_released("Aim") and _state == Enums.State.AIM:
 		_launch()
